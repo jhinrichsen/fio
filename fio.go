@@ -1,14 +1,16 @@
 package fio
 
 import (
+	"log"
 	"os"
 	"time"
 )
 
 // Exists returns whether the given file or directory exists or not
 func Exists(path string) (bool, error) {
-	_, err := os.Stat(path)
-	if err != nil {
+	fi, err := os.Stat(path)
+	log.Printf("stat %s: %+v\n", path, fi)
+	if err == nil {
 		return true, nil
 	}
 	if os.IsNotExist(err) {
